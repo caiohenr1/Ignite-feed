@@ -1,28 +1,46 @@
+import { format, formatDistanceToNow} from 'date-fns'
+import ptBr from 'date-fns/locale/pt-BR'
 import { Avatar } from '../Avatar/Avatar'
 import { CommentForm } from '../Form/CommentForm'
 import styles from './Post.module.css'
 
-export const Post = () => {
+export const Post = ( {author, content, publishedAt}) => {
+
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBr,
+  } )
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBr,
+    addSuffix: true,
+  })
+
   return (
     <article className={styles.post} >
       <header>
         <div className={styles.author}>
-          <Avatar  src="https://github.com/fhaze.png" />
+          <Avatar  src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>Eder Matumoto</strong>
-            <span>Tech Lead</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
-        <time title='25 de Abril as 23:09h'>Publicado há 1h</time>
+        <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+          {publishedDateRelativeToNow}
+        </time>
       </header>
       <div className={styles.content}>
-        <p>Fala galeraa 👋</p>
-        <p>Acabei de subir mais uma versão do GSS. É mais uma das ideias geniais do Arlei! 🚀</p>
-        <p><a href=''>👉 jane.design/doctorcare</a></p>
+        {content.map((item) => {
+          if(item.type === 'paragraph'){
+            return <p>{item.content}</p>
+          }else if (item.type === 'link') {
+            return <p><a href='#'>{item.content}</a></p>
+          }
+        })}
         <p>
-          <a href="">#novoprojeto</a>
-          <a href=""> #nlw</a>
-          <a href="">    #rocketseat</a>
+          <a href="">#novasideias</a>
+          <a href=""> #gss</a>
+          <a href="">    #petshop</a>
         </p>
       </div>
       <CommentForm />
