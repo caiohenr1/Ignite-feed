@@ -5,6 +5,7 @@ import styles from './App.module.css'
 // components
 import { Header } from "./components/Header/Header"
 import { Sidebar } from './components/Sidebar/Sidebar'
+import { Post } from './components/Post/Post'
 
 export const App = () => {
   return (
@@ -13,7 +14,8 @@ export const App = () => {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae nisi totam aut officia debitis nesciunt placeat corporis nobis, magni impedit voluptatum. Quam libero commodi amet similique possimus? Aliquid, illum saepe.</p>
+          <Post />
+          <Post />
         </main>
       </div>
     </div>
