@@ -1,3 +1,4 @@
+import { Comment } from '../Comment/Comment'
 import styles from './CommentForm.module.css'
 export const CommentForm = () => {
   return (
@@ -9,6 +10,10 @@ export const CommentForm = () => {
       <footer>
         <button type='submit'>Publicar</button>
       </footer>
+      <div className={styles.commentList}>
+        <Comment />
+        <Comment />
+      </div>
     </form>
   )
 }

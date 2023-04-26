@@ -1,3 +1,4 @@
+import { Avatar } from '../Avatar/Avatar'
 import { CommentForm } from '../Form/CommentForm'
 import styles from './Post.module.css'
 
@@ -6,7 +7,7 @@ export const Post = () => {
     <article className={styles.post} >
       <header>
         <div className={styles.author}>
-          <img className={styles.avatar} src="https://github.com/fhaze.png" />
+          <Avatar  src="https://github.com/fhaze.png" />
           <div className={styles.authorInfo}>
             <strong>Eder Matumoto</strong>
             <span>Tech Lead</span>
