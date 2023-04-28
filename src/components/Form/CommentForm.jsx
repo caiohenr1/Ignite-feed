@@ -3,39 +3,56 @@ import { Comment } from '../Comment/Comment'
 import styles from './CommentForm.module.css'
 
 
-export const CommentForm = () => {  
+export const CommentForm = () => {
+  const [comments, setComments] = useState([])
+  const [newComment, setNewComment] = useState('')
 
-  const [comments, setComments] =  useState([
-    'Eder! Venha aqui para uma reunião'
-  ])
-  const [newCommentText, setNewCommentText] = useState('')
-  
-  function handleNewCommentChange(event) {
-    setNewCommentText(event.target.value)
+  function handleCommentChange(event) {
+    event.target.setCustomValidity('')
+    setNewComment(event.target.value)
   }
 
-
- function handleCreateNewComment(event) {
+  function handleAddNewComment(event) {
     event.preventDefault()
-    setComments( [...comments, newCommentText])
-    
-    setNewCommentText('')
- }
+    setComments([...comments, newComment])
 
+    setNewComment('')
+  }
+
+  function deleteComment(deletedComment) {
+    const commentWithoutDeletedOne = comments.filter((comment) => {
+      return comment !== deletedComment
+    })
+
+    setComments(commentWithoutDeletedOne)
+  }
+
+  // validation
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity('Esse campo é obrigatório!')
+  }
+  const isNewCommentEmpty = newComment.length === 0
+  
   return (
-    <form  onSubmit={handleCreateNewComment} className={styles.commentForm}>
+    <form
+      onSubmit={handleAddNewComment}
+      className={styles.commentForm}>
       <strong>Deixe seu feedback</strong>
       <textarea
-        value={newCommentText}
-        onChange={handleNewCommentChange}
+        value={newComment}
+        onChange={handleCommentChange}
         placeholder='Deixe um comentário'
+        onInvalid={handleNewCommentInvalid}
+        required
       />
-      <footer>
-        <button type='submit'>Publicar</button>
+      <footer className={styles.btn}>
+        <button type='submit' disabled={isNewCommentEmpty}>
+          Publicar
+        </button>
       </footer>
       <div className={styles.commentList}>
         {comments.map((item) => {
-          return <Comment content={item} />
+          return <Comment key={item} content={item} onDeleteComment={deleteComment} />
         })}
       </div>
     </form>
