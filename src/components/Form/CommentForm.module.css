@@ -49,10 +49,12 @@
 }
 
 
+/* só teremos hover caso o botão não esteja disabled */
 .commentForm button[type=submit]:not(:disabled):hover {
   background: var(--green-300);
 }
 
+/* desabilita o button caso não tenha conteúdo no input (Textarea) */
 .commentForm button[type=submit]:disabled {
   opacity: 0.4;
   cursor: not-allowed;

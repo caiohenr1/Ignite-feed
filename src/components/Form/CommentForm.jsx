@@ -4,7 +4,9 @@ import styles from './CommentForm.module.css'
 
 
 export const CommentForm = () => {
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState([
+    'Eder! Sobe aqui um pouquinho'
+  ])
   const [newComment, setNewComment] = useState('')
 
   function handleCommentChange(event) {
@@ -31,8 +33,8 @@ export const CommentForm = () => {
   function handleNewCommentInvalid() {
     event.target.setCustomValidity('Esse campo é obrigatório!')
   }
-  const isNewCommentEmpty = newComment.length === 0
-  
+  const inputCommentEmpty = newComment.length === 0
+
   return (
     <form
       onSubmit={handleAddNewComment}
@@ -46,7 +48,7 @@ export const CommentForm = () => {
         required
       />
       <footer className={styles.btn}>
-        <button type='submit' disabled={isNewCommentEmpty}>
+        <button type='submit' disabled={inputCommentEmpty}>
           Publicar
         </button>
       </footer>
